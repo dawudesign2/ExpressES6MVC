@@ -1,6 +1,5 @@
 import { body, validationResult } from 'express-validator';
 class Controller {
-
     validateUser() {
         return [
             body("email")
@@ -12,6 +11,9 @@ class Controller {
             body("lastname")
                 .isLength({ max: 255 })
                 .withMessage("Lastname must be less than 255 characters"),
+            body("password")
+                .isLength({ min: 8 })
+                .withMessage("Password must be at least 8 characters long"),
             (req, res, next) => {
               const errors = validationResult(req);
           
@@ -25,7 +27,10 @@ class Controller {
     }
 
     index(_ ,res) {
-        res.send('Express ES6 MVC is working!');
+        res.render("Home/index.ejs", {
+            title: "Express Version ES6 with MVC",
+            message: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eaque, quia! Ut, sint suscipit quam enim porro quisquam necessitatibus quasi natus inventore nulla provident temporibus placeat voluptate deleniti velit magni cumque."
+        });
     }
 }
 

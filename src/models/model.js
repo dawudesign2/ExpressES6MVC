@@ -1,6 +1,7 @@
 import database from '../../database.js';
-
 class Model {
+
+    
 
     constructor() {
         this.db = database;
@@ -56,8 +57,6 @@ class Model {
         const sql = `DELETE FROM ${table} WHERE id = ${id}`;
         return db.query(sql)
     }
-
-    
 }
 
 export default Model;
