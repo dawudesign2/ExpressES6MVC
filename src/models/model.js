@@ -1,8 +1,6 @@
 import database from '../../database.js';
 class Model {
 
-    
-
     constructor() {
         this.db = database;
     }
@@ -32,6 +30,11 @@ class Model {
             where.map(({value}) => value)
         )
 
+    }
+    
+    async findAll(table) {
+        const db = await this.DB();
+        return db.query(`SELECT * FROM ${table}`);
     }
 
     async findById(table, id) {

@@ -1,4 +1,5 @@
 import { body, validationResult } from 'express-validator';
+import Movie from '../models/Movie.js';
 class Controller {
     validateUser() {
         return [
@@ -26,11 +27,10 @@ class Controller {
         ];  
     }
 
-    index(_ ,res) {
-        res.render("Home/index.ejs", {
-            title: "Express Version ES6 with MVC",
-            message: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eaque, quia! Ut, sint suscipit quam enim porro quisquam necessitatibus quasi natus inventore nulla provident temporibus placeat voluptate deleniti velit magni cumque."
-        });
+    async index(_ ,res) {
+        const movies = new Movie();
+        const allMovies = await movies.findAll();
+        res.render('Home/index', { movies: allMovies[0]});
     }
 }
 

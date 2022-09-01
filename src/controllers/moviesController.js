@@ -1,7 +1,7 @@
 import Movie from '../models/Movie.js';
 
 class MoviesController {
-   
+    
     getMovie(req, res) {
         const movie = new Movie;
         const details = req.query;

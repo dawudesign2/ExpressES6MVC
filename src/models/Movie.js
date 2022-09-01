@@ -11,6 +11,10 @@ class Movie extends Model {
         return this.model.find(this.table, details);
     }
 
+    async findAll() {
+        return this.model.findAll(this.table);
+    }
+
     async findById(id) {
         return this.model.findById(this.table, id);
     }
