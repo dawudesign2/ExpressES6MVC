@@ -1,5 +1,6 @@
 import { body, validationResult } from 'express-validator';
 import Movie from '../models/Movie.js';
+import User from '../models/User.js';
 class Controller {
     validateUser() {
         return [
@@ -31,6 +32,13 @@ class Controller {
         const movies = new Movie();
         const allMovies = await movies.findAll();
         res.render('Home/index', { movies: allMovies[0]});
+    }
+
+
+    async show(_, res) {
+        const users = new User();
+        const allUsers = await users.findAll();
+        res.render('Home/show', { users: allUsers[0]});
     }
 }
 

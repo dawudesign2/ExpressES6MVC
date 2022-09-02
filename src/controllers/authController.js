@@ -7,8 +7,6 @@ class AuthController {
     register(_ ,res) {
         res.render("Auth/register.ejs");
     }
-
-  
 }
 
 export default new AuthController();

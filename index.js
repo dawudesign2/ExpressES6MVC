@@ -24,7 +24,6 @@ app.use(json())
    .use(Root)
    .use((_ , res) => res.status(404).render("Errors/404.ejs"));
 
-
 app.listen(Port, () => {
     console.log(`Server is running on port http://localhost:${Port}`);
 });

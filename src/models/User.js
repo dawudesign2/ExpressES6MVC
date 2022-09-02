@@ -12,8 +12,16 @@ class User extends Model {
         return this.model.find(this.table, details);
     }
 
+    async findAll() {
+        return this.model.findAll(this.table);
+    }
+
     async findById(id) {
         return this.model.findById(this.table, id);
+    }
+
+    async findByEmail(email) {
+        return this.model.findByEmail(this.table, email);
     }
 
     hashingOptions = {
@@ -44,8 +52,6 @@ class User extends Model {
     async delete(id) {
         return this.model.delete(this.table, id);
     }
-    
-
 }
 
 

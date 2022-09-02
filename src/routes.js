@@ -8,6 +8,7 @@ const Root = express.Router(); // Create a new router instance
 
 // Home page
 Root.get("/", Controller.index);
+Root.get("/show", Controller.show);
 
 // Users GET, POST, PUT, DELETE
 Root.get("/users", UsersController.getUser);
