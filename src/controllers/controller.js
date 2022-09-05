@@ -1,3 +1,4 @@
+import { text } from 'express';
 import { body, validationResult } from 'express-validator';
 import Movie from '../models/Movie.js';
 import User from '../models/User.js';

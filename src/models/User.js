@@ -33,16 +33,20 @@ class User extends Model {
     }
 
     async hashPassword(password) {
-        return argon.hash(password, hashingOptions);
-    } 
-
-    async comparePassword(password, hash) {
-        return argon.verify(hash, password, hashingOptions);
+        return argon.hash(password, this.hashingOptions);
     }
 
+
     async create(details) {
-        this.hashPassword(details.password);
-        return this.model.create(this.table, details);
+        console.log(details);
+        const hashedPassword = await this.hashPassword(details.password);
+        const user = {
+            firstname: details.firstname,
+            lastname: details.lastname,
+            email: details.email,
+            password: hashedPassword
+        }
+        return this.model.create(this.table, user);
     }
 
     async update(details) {

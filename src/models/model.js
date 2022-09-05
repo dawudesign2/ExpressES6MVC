@@ -34,7 +34,7 @@ class Model {
     
     async findAll(table) {
         const db = await this.DB();
-        return db.query(`SELECT * FROM ${table}`);
+        return db.query(`SELECT * FROM ${table}`); 
     }
 
     async findById(table, id) {
@@ -86,11 +86,6 @@ class Model {
         return db.query(sql)
     }
 
-    async manyToManyWith(table, table2, table3, id) {
-        const db = await this.DB();
-        const sql = `SELECT * FROM ${table} WHERE ${table2}_id = ${id} AND ${table3}_id = ${id}`;
-        return db.query(sql)
-    }
 
 }
 
