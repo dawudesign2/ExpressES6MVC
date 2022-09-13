@@ -1,4 +1,6 @@
 import database from '../../database.js';
+import argon from "argon2";
+import jwt from "jsonwebtoken";
 class Model {
 
     constructor() {
@@ -86,6 +88,27 @@ class Model {
         return db.query(sql)
     }
 
+    hashingOptions = {
+        hashLength: 32,
+        timeCost: 3,
+        memoryCost: 1024,
+        parallelism: 1,
+        type: argon.argon2id
+    }
+
+    async hashPassword(password) {
+        return argon.hash(password, this.hashingOptions);
+    }
+
+    async verifyPassword(password, hash) {
+        return argon.verify(hash, password);
+    }
+
+    generateToken(payload) {
+        return jwt.sign({id: payload}, process.env.JWT_SECRET, {
+            expiresIn: 86400
+        })
+    }
 
 }
 

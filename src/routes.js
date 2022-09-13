@@ -24,10 +24,12 @@ Root.get("/movies/:id", MoviesController.getMovieById);
 
 //Auth GET, POST, PUT, DELETE
 Root.get("/login", authController.login);
-Root.post("/login", authController.login);
+Root.post("/login",authController.login);
 
 Root.get("/register", authController.register);
 Root.post("/register", authController.register);
+
+Root.get("/dashbord",authController.verifyToken ,authController.dashbord);
 
 
 export default Root;

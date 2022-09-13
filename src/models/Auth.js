@@ -1,25 +1,31 @@
-class Auth {
-
+import Model from "./model.js";
+import Dotenv from "dotenv";
+Dotenv.config();
+class Auth extends Model {
     constructor() {
-        this.user = null;
-        this.token = null;
+        super();
+        this.table = "users";
+        this.model = new Model();
     }
-    
+
     async login(email, password) {
-        const user = await this.findByEmail(email);
-        if(user) {
-            const isValid = await this.comparePassword(password, user.password);
-            if(isValid) {
-                this.user = user;
-                this.token = this.generateToken();
-                return this.token;
+        await this.findByEmail(this.table, email)
+        .then(async ([user]) => {
+            if(!user[0]) {
+                return false;
             }
-        }
-        return false;
+            const valid = await this.verifyPassword(password, user[0].password);
+            if(!valid) {
+                return false;
+            }
+            this.token = this.generateToken(user[0].id);
+            return this.token;
+        });
+        return this.token;
     }
 
     async register(email, password) {
-        const user = await this.findByEmail(email);
+        const user = await this.findByEmail(this.table, email);
         if(user) {
             return false;
         }
@@ -32,10 +38,6 @@ class Auth {
         this.token = this.generateToken();
         return this.token;
     }
-alter 
-
 }
 
-
-
-export default Auth();
+export default Auth;

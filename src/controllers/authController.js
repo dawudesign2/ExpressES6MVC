@@ -1,9 +1,27 @@
 import User from "../models/User.js";
+import Auth from "../models/Auth.js";
 class AuthController {
-    login(_ , res) {
-        res.render("Auth/login.ejs");
-    }
 
+   async login(req, res) {
+        const { email, password } = req.body;
+        if(!email || !password) {
+            console.log("Please enter all fields");
+        } else {
+            const auth = new Auth();
+            const result = await auth.login(email, password);
+            if(result) {
+                res.cookie("token", result, { 
+                    expires: new Date(Date.now() + 900000),
+                    httpOnly: true 
+                });
+                res.setHeader("Authorization", `Bearer ${result}`);
+                res.redirect("/dashbord");
+            } else {
+                res.redirect("/login");
+            }
+        }
+        res.render("Auth/login");
+    }
     async register(req ,res) {
         const { firstname, lastname, email, password } = req.body;
         const details = {
@@ -30,6 +48,20 @@ class AuthController {
         }
         res.render("Auth/register");
     }
+
+    verifyToken(req, res, next) {
+        const token = req.cookies.token;
+        if(!token) {
+            res.redirect("/login");
+        } else {
+            next();
+        }
+    }
+
+    dashbord(req, res) {
+        res.render("Auth/dashbord");
+    }
+    
 }
 
 export default new AuthController();

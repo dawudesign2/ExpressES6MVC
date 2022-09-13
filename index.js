@@ -8,6 +8,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const Port = process.env.PORT;
+const Url = process.env.URL;
 const app = express();
 
 
@@ -25,7 +26,7 @@ app.use(json())
    .use((_ , res) => res.status(404).render("Errors/404.ejs"));
 
 app.listen(Port, () => {
-    console.log(`Server is running on port http://localhost:${Port}`);
+    console.log(`Server is running on port ${Url}${Port}`);
 });
 
 

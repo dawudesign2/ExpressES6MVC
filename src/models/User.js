@@ -1,5 +1,4 @@
 import Model from "./model.js";
-import argon from "argon2";
 
 class User extends Model {
     constructor() {
@@ -24,18 +23,13 @@ class User extends Model {
         return this.model.findByEmail(this.table, email);
     }
 
-    hashingOptions = {
-        hashLength: 32,
-        timeCost: 3,
-        memoryCost: 1024,
-        parallelism: 1,
-        type: argon.argon2id
-    }
-
     async hashPassword(password) {
-        return argon.hash(password, this.hashingOptions);
+        return this.model.hashPassword(password);
     }
 
+    async verifyPassword(password, hash) {
+        return this.model.verifyPassword(password, hash);
+    }
 
     async create(details) {
         console.log(details);
